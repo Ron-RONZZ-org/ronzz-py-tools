@@ -1,24 +1,54 @@
 [project]
 name = "ronzz-tool"
 version = "0.1.0"
-description = "Une collection de mini-outils Python"
+description = "A collection of miscellaneous Python tools for PDF, audio, video, and text processing"
 authors = [
-    {name = "Ron Chou",email = "ron@ronzz.org"}
+    {name = "Ron Chou", email = "ron@ronzz.org"}
 ]
-license = {text = "AGPL 3.0"}
+license = {text = "AGPL-3.0"}
 readme = "README.md"
-requires-python = "<3.14,>=3.12"
+requires-python = ">=3.12,<3.14"
 dependencies = [
-    "pdfplumber (>=0.11.6,<0.12.0)",
-    "markdownify (>=1.1.0,<2.0.0)",
-    "googletrans (>=4.0.2,<5.0.0)",
-    "pydub (>=0.25.1,<0.26.0)",
-    "yt-dlp (>=2025.3.31,<2026.0.0)",
-    "google-play-scraper (>=1.2.7,<2.0.0)",
-    "pyside6 (>=6.9.0,<7.0.0)",
-    "pyperclip (>=1.9.0,<2.0.0)",
-    "requests (>=2.32.3,<3.0.0)"
+    "pdfplumber>=0.11.6,<0.12.0",
+    "markdownify>=1.1.0,<2.0.0",
+    "googletrans>=4.0.2,<5.0.0",
+    "pydub>=0.25.1,<0.26.0",
+    "yt-dlp>=2025.3.31,<2026.0.0",
+    "google-play-scraper>=1.2.7,<2.0.0",
+    "pyside6>=6.9.0,<7.0.0",
+    "pyperclip>=1.9.0,<2.0.0",
+    "requests>=2.32.3,<3.0.0",
+    "ebooklib>=0.18",
+    "beautifulsoup4>=4.12.0"
 ]
+keywords = [
+    "pdf",
+    "audio",
+    "video",
+    "youtube",
+    "epub",
+    "markdown",
+    "converter",
+    "text-processing",
+    "utilities"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Multimedia :: Video"
+]
+
+[project.urls]
+Homepage = "https://github.com/Ron-RONZZ-org/ronzz-py-tools"
+Repository = "https://github.com/Ron-RONZZ-org/ronzz-py-tools"
+Issues = "https://github.com/Ron-RONZZ-org/ronzz-py-tools/issues"
 
 [tool.poetry]
 packages = [{include = "ronzz_tool", from = "src"}]
