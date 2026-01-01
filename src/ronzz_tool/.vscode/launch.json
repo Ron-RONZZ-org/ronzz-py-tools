@@ -1,0 +1,34 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Déboguer avec Poetry",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "POETRY_VIRTUALENVS_CREATE": "true",
+                "POETRY_VIRTUALENVS_IN_PROJECT": "true"
+            },
+            "python": "/home/ron/.cache/pypoetry/virtualenvs/ronzz-tool-CMyy2PWF-py3.12/bin/python"
+        },
+        {
+            "name": "Attach to Debugpy",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "."
+                }
+            ]
+        }
+    ]
+}
+
