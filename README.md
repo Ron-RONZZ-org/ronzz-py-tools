@@ -20,12 +20,16 @@ Install from PyPI (once published):
 pip install ronzz-tool
 ```
 
-Or install from source:
+Or install from source using Poetry (recommended):
 
 ```bash
 git clone https://github.com/Ron-RONZZ-org/ronzz-py-tools.git
 cd ronzz-py-tools
-pip install -e .
+# Install dependencies and create virtual environment
+poetry install
+
+# spawn an env shell
+$(poetry env activate)
 ```
 
 ## Requirements
@@ -36,7 +40,11 @@ pip install -e .
 ### External Dependencies
 
 Some features require external tools:
+
 - **FFmpeg**: Required for audio and video processing
+  - on Debian-based linux
+    - `which ffmpeg` : should see `/usr/bin/ffmpeg` or similar
+    - if no response : `sudo apt install ffmpeg`
 - **Inkscape**: Required for SVG conversion (optional)
 
 ## Usage
@@ -44,6 +52,7 @@ Some features require external tools:
 ### PDF to Markdown Conversion
 
 ```python
+# main.py
 from ronzz_tool.pdf2md import convert_pdf_to_markdown
 
 # Convert PDF to Markdown
@@ -55,28 +64,36 @@ convert_pdf_to_markdown(
 )
 ```
 
+Then `poetry run python main.py`
+
 **CLI Usage:**
+
 ```bash
-python -m ronzz_tool.pdf2md --input input.pdf --output output.md --extract-images
+poetry run python -m ronzz_tool.pdf2md --input input.pdf --output output.md --extract-images
 ```
 
 ### EPUB to Markdown Conversion
 
 ```python
+# main.py
 from ronzz_tool.epub2md import epub_to_markdown
 
 # Convert EPUB to Markdown
 epub_to_markdown("input.epub", "output.md")
 ```
 
+Then `poetry run python main.py`
+
 **CLI Usage:**
+
 ```bash
-python -m ronzz_tool.epub2md input.epub output.md
+poetry run python -m ronzz_tool.epub2md input.epub output.md
 ```
 
 ### Audio Processing
 
 ```python
+# main.py
 from ronzz_tool.audio import trim_audio_bulk, audio_convert_bulk
 
 # Trim audio into multiple clips
@@ -91,9 +108,19 @@ trim_audio_bulk(
 audio_convert_bulk(input_dir="input_audio", output_dir="output_audio")
 ```
 
+Then `poetry run python main.py`
+
 ### YouTube Download
 
+Verify that impersonation agents are correctly installed
+
+```
+poetry add curl-cffi
+yt-dlp --list-impersonate-targets
+```
+
 ```python
+# main.py
 from ronzz_tool.youTube import download_youtube
 
 # Download YouTube videos
@@ -107,9 +134,12 @@ download_youtube(
 )
 ```
 
+Then `poetry run python main.py`
+
 ### Text Processing
 
 ```python
+# main.py
 from ronzz_tool.textProc import textProc
 
 # Convert VTT subtitle files to plain text
@@ -129,6 +159,7 @@ words = textProc.split_by_uppercase("HelloWorld")  # ["Hello", "World"]
 ### Translation
 
 ```python
+# main.py
 from ronzz_tool.translate import translate_text_file
 import asyncio
 
@@ -141,28 +172,37 @@ asyncio.run(translate_text_file(
 ))
 ```
 
+Then `poetry run python main.py`
+
 **CLI Usage:**
+
 ```bash
-python -m ronzz_tool.translate input.md output_fr.md --src_lang en --dest_lang fr
+poetry run python -m ronzz_tool.translate input.md output_fr.md --src_lang en --dest_lang fr
 ```
 
 ### Image to SVG Conversion
 
 ```python
+# main.py
 from ronzz_tool.img2SVG import image_to_svg_inkscape
 
 # Convert image to SVG (requires Inkscape)
 image_to_svg_inkscape("input.png", "output.svg")
 ```
 
+Then `poetry run python main.py`
+
 ### PDF to PNG Conversion
 
 ```python
+# main.py
 from ronzz_tool.pdf2png import extract_images_from_pdf
 
 # Extract images from PDF
 extract_images_from_pdf("input.pdf", "output_directory")
 ```
+
+Then `poetry run python main.py`
 
 ## Development
 
@@ -173,15 +213,15 @@ extract_images_from_pdf("input.pdf", "output_directory")
 git clone https://github.com/Ron-RONZZ-org/ronzz-py-tools.git
 cd ronzz-py-tools
 
-# Install in development mode
-pip install -e .
+# Install in development mode (Poetry)
+poetry install
 ```
 
 ### Running Tests
 
 ```bash
 # Run tests (if available)
-python -m pytest tests/
+poetry run pytest tests/
 ```
 
 ## License
@@ -195,8 +235,9 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## Author
 
 **Ron Chou**
-- Email: ron@ronzz.org
-- Website: https://ronzz.org
+
+- Email: <ron@ronzz.org>
+- Website: <https://ronzz.org>
 
 ## Acknowledgments
 

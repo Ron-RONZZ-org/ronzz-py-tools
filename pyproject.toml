@@ -3,24 +3,11 @@ name = "ronzz-tool"
 version = "0.1.0"
 description = "A collection of miscellaneous Python tools for PDF, audio, video, and text processing"
 authors = [
-    {name = "Ron Chou", email = "ron@ronzz.org"}
+    { name = "Ron Chou", email = "ron@ronzz.org" }
 ]
-license = {text = "AGPL-3.0"}
+license = { text = "AGPL-3.0" }
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
-dependencies = [
-    "pdfplumber>=0.11.6,<0.12.0",
-    "markdownify>=1.1.0,<2.0.0",
-    "googletrans>=4.0.2,<5.0.0",
-    "pydub>=0.25.1,<0.26.0",
-    "yt-dlp>=2025.3.31,<2026.0.0",
-    "google-play-scraper>=1.2.7,<2.0.0",
-    "pyside6>=6.9.0,<7.0.0",
-    "pyperclip>=1.9.0,<2.0.0",
-    "requests>=2.32.3,<3.0.0",
-    "ebooklib>=0.18",
-    "beautifulsoup4>=4.12.0"
-]
 keywords = [
     "pdf",
     "audio",
@@ -50,9 +37,27 @@ Homepage = "https://github.com/Ron-RONZZ-org/ronzz-py-tools"
 Repository = "https://github.com/Ron-RONZZ-org/ronzz-py-tools"
 Issues = "https://github.com/Ron-RONZZ-org/ronzz-py-tools/issues"
 
+# Poetry configuration
 [tool.poetry]
-packages = [{include = "ronzz_tool", from = "src"}]
+packages = [
+    { include = "ronzz_tool", from = "src" }
+]
 
+[tool.poetry.dependencies]
+python = ">=3.12,<3.14"
+pdfplumber = ">=0.11.6,<0.12.0"
+markdownify = ">=1.1.0,<2.0.0"
+googletrans = ">=4.0.2,<5.0.0"
+pydub = ">=0.25.1,<0.26.0"
+yt-dlp =  ">=2025.12.08"
+google-play-scraper = ">=1.2.7,<2.0.0"
+pyside6 = ">=6.9.0,<7.0.0"
+pyperclip = ">=1.9.0,<2.0.0"
+requests = ">=2.32.3,<3.0.0"
+ebooklib = ">=0.18"
+beautifulsoup4 = ">=4.12.0"
+curl-cffi = "^0.14.0"
+browser-cookie3 = "^0.20.1"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

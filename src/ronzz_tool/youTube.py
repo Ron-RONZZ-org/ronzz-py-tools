@@ -10,6 +10,11 @@ def download_youtube(
     preferred_audio_quality="192",
     preferred_video_quality="best",
     subtitle=False,  # Ajout de l'option
+    cookies=None,
+    cookies_from_browser=None,
+    js_runtimes=None,
+    username=None,
+    password=None,
 ):
     for url in youtube_url_list:
         try:
@@ -27,13 +32,25 @@ def download_youtube(
                     ],
                 }
             elif format == "video":
+                # Build format string safely: don't use 'height<=best' which is invalid
+                if str(preferred_video_quality).lower() == "best":
+                    format_str = "bestvideo+bestaudio/best"
+                else:
+                    format_str = f"bestvideo[height<={preferred_video_quality}]+bestaudio/best/best"
+
                 ydl_opts = {
-                    "format": f"bestvideo[height<={preferred_video_quality}]+bestaudio/best/best",
+                    "format": format_str,
                     "outtmpl": f"{output_path}/%(title)s.%(ext)s",
                 }
             elif format == "both":
+                # Same safe construction for 'both' (video+audio)
+                if str(preferred_video_quality).lower() == "best":
+                    format_str = "bestvideo+bestaudio/best"
+                else:
+                    format_str = f"bestvideo[height<={preferred_video_quality}]+bestaudio/best/best"
+
                 ydl_opts = {
-                    "format": f"bestvideo[height<={preferred_video_quality}]+bestaudio/best/best",
+                    "format": format_str,
                     "outtmpl": f"{output_path}/%(title)s.%(ext)s",
                 }
             elif format == "subtitle_only":
@@ -61,6 +78,26 @@ def download_youtube(
                     }
                 )
 
+            # Support pour cookies / connexion (utile pour vidéos nécessitant authentification)
+            # - `cookies`: chemin vers un fichier cookies (exporté depuis le navigateur)
+            # - `cookies_from_browser`: nom du navigateur à fournir à yt-dlp, ex: 'chrome' ou 'firefox'
+            # - `username` / `password`: identifiants YouTube (si nécessaire)
+            if cookies:
+                ydl_opts.update({"cookiefile": cookies})
+
+            if cookies_from_browser:
+                ydl_opts.update({"cookiesfrombrowser": cookies_from_browser})
+
+            if username and password:
+                ydl_opts.update({"username": username, "password": password})
+
+            # Passer un runtime JS si demandé (ex: 'node') — mappe l'option CLI --js-runtimes
+            if js_runtimes:
+                # Ajout de deux clés possibles pour compatibilité
+                ydl_opts.update(
+                    {"js_runtimes": js_runtimes, "js-runtimes": js_runtimes}
+                )
+
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 print(f"Téléchargement ({format}) depuis: {url}")
                 ydl.download([url])
@@ -78,6 +115,16 @@ if __name__ == "__main__":
     audio_quality_option = "192"
     video_quality_option = "720"
     subtitle_option = False
+    # Si une vidéo requiert une vérification d'âge ou une connexion, fournissez:
+    # - `cookies_file`: chemin vers un fichier cookies exporté (recommended)
+    # - `cookies_from_browser_option`: ex: 'chrome' ou 'firefox' (utilise le navigateur pour extraire les cookies)
+    # - `username_option` / `password_option`: identifiants YouTube si nécessaire
+    cookies_file = None  # Exemple: '/home/ron/Downloads/youtube-cookies.txt'
+    # Par défaut, utiliser l'extraction depuis le navigateur 'firefox' et un runtime JS 'node'
+    cookies_from_browser_option = "firefox"  # Exemple: 'chrome' or 'firefox'
+    js_runtimes_option = "node"  # Exemple: 'node', 'deno', 'quickjs', 'bun'
+    username_option = None
+    password_option = None
     # Créer le répertoire de sortie s'il n'existe pas
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -122,6 +169,11 @@ if __name__ == "__main__":
                     preferred_audio_quality=audio_quality_option,
                     preferred_video_quality=video_quality_option,
                     subtitle=subtitle_option,  # Activation du téléchargement des sous-titres
+                    cookies=cookies_file,
+                    cookies_from_browser=cookies_from_browser_option,
+                    username=username_option,
+                    password=password_option,
+                    js_runtimes=js_runtimes_option,
                 )
             else:
                 print(f"Aucune URL trouvée dans {csv_file}")
