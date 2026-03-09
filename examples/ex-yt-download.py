@@ -3,10 +3,9 @@ from ronzz_tool.youTube import download_youtube
 
 # Download YouTube videos
 youtube_urls = [
-    "https://www.youtube.com/watch?v=G60OzaglxAQ",
-    "https://www.youtube.com/watch?v=L_3KmTevD5o",
-    "https://www.youtube.com/watch?v=c6rP-YP4c5I",
-    "https://www.youtube.com/watch?v=uvdO0TJXjdc",
+    "https://www.youtube.com/watch?v=exIDp2vlkmw",
+    "https://www.youtube.com/watch?v=eKJclYAP2OI",
+    "https://www.youtube.com/watch?v=9kDm7Kxncdk",
 ]
 download_youtube(
     youtube_url_list=youtube_urls,

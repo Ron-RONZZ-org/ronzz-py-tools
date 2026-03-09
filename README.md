@@ -114,8 +114,10 @@ Then `poetry run python main.py`
 
 Verify that impersonation agents are correctly installed
 
-```
+```bash
+sudo apt install rustc cargo node
 poetry add curl-cffi
+poetry update yt-dlp
 yt-dlp --list-impersonate-targets
 ```
 
